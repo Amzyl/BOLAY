@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUAYAN MLBB CHAMPIONSHIP 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mlbb-blue: #1e3a8a;
+            --mlbb-gold: #fbbf24;
+            --mlbb-purple: #6d28d9;
+            --dark-bg: #020617;
+        }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--dark-bg);
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .font-serif {
+            font-family: 'Cinzel', serif;
+        }
+
+        .mlbb-gradient-text {
+            background: linear-gradient(to bottom, #fff 0%, #fbbf24 50%, #d97706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.4));
+        }
+
+        .mlbb-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(251, 191, 36, 0.15);
+            box-shadow: 0 0 20px rgba(30, 58, 138, 0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .mlbb-card:hover {
+            border-color: var(--mlbb-gold);
+            transform: translateY(-8px);
+            box-shadow: 0 0 35px rgba(251, 191, 36, 0.25);
+        }
+
+        .mlbb-btn {
+            background: linear-gradient(to bottom, #fbbf24, #b45309);
+            color: #000;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .mlbb-btn:hover {
+            filter: brightness(1.2);
+            box-shadow: 0 0 25px rgba(251, 191, 36, 0.5);
+            transform: scale(1.05);
+        }
+
+        .crystal-glow {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(30, 58, 138, 0.2) 0%, transparent 70%);
+            filter: blur(80px);
+            z-index: -1;
+        }
+
+        #notification {
+            display: none;
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 100;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .animate-float {
+            animation: float 5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="scroll-smooth">
+
+    <!-- Notifikasi Victory -->
+    <div id="notification" class="mlbb-card p-5 rounded-2xl shadow-2xl border-l-4 border-yellow-500 max-w-sm">
+        <div class="flex items-center space-x-3">
+            <div class="bg-yellow-500 p-2 rounded-lg">
+                <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+            </div>
+            <div>
+                <p class="text-[10px] font-black text-white uppercase tracking-[0.2em]">Victory Confirmed</p>
+                <p id="notif-text" class="text-[11px] text-gray-400 mt-0.5 leading-tight"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigasi -->
+    <nav class="fixed w-full z-50 bg-slate-950/40 backdrop-blur-2xl border-b border-yellow-500/10">
+        <div class="container mx-auto px-6 py-5 flex justify-between items-center">
+            <div class="leading-none">
+                <span class="block text-2xl font-black tracking-[0.2em] mlbb-gradient-text font-serif italic">SUAYAN</span>
+                <span class="text-[9px] text-blue-400 uppercase tracking-[0.5em] font-bold mt-1">Land of Legends</span>
+            </div>
+            <div class="hidden lg:flex items-center space-x-12 text-[10px] uppercase tracking-[0.3em] font-extrabold text-gray-400">
+                <a href="#home" class="hover:text-yellow-400 transition">Beranda</a>
+                <a href="#jadwal" class="hover:text-yellow-400 transition">Jadwal</a>
+                <a href="#daftar" class="hover:text-yellow-400 transition">Daftar</a>
+            </div>
+            <button onclick="scrollToDaftar()" class="mlbb-btn px-8 py-2.5 rounded text-[10px]">Registrasi</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden">
+        <div class="crystal-glow top-0 left-1/4"></div>
+        <div class="crystal-glow bottom-0 right-1/4"></div>
+        
+        <!-- Hero Background -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=2070" class="w-full h-full object-cover opacity-10 scale-110">
+            <div class="absolute inset-0 bg-gradient-to-b from-dark-bg/20 via-dark-bg/70 to-dark-bg"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <div class="inline-flex items-center space-x-3 bg-blue-900/20 border border-blue-500/30 px-6 py-2.5 rounded-full mb-10 backdrop-blur-md animate-float">
+                <span class="w-2 h-2 bg-blue-400 rounded-full animate-ping shadow-[0_0_10px_#60a5fa]"></span>
+                <p class="text-blue-400 text-[10px] font-black uppercase tracking-[0.6em]">Open Registration 2026</p>
+            </div>
+            
+            <h1 class="text-6xl md:text-[9.5rem] font-black mb-8 leading-[0.8] tracking-tighter uppercase italic">
+                SUAYAN <br>
+                <span class="mlbb-gradient-text">CHAMPIONSHIP</span>
+            </h1>
+            
+            <div class="max-w-3xl mx-auto mb-16 px-4">
+                <p class="text-gray-400 text-sm md:text-xl font-medium leading-relaxed italic border-y border-white/5 py-4">
+                    Pertempuran Dimulai: <span class="text-white font-black">1 - 3 Mei 2026</span> <br>
+                    <span class="text-yellow-500 font-bold uppercase tracking-[0.3em] text-xs">Pendaftaran: 30 Maret - 3 Mei</span>
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto mb-16">
+                <div class="mlbb-card p-8 rounded-2xl">
+                    <span class="block text-[10px] text-blue-400 uppercase font-black mb-2 tracking-widest">Kapasitas</span>
+                    <span class="text-2xl font-black text-white italic">16 GRUP</span>
+                </div>
+                <div class="mlbb-card p-8 rounded-2xl">
+                    <span class="block text-[10px] text-purple-400 uppercase font-black mb-2 tracking-widest">Lineup</span>
+                    <span class="text-2xl font-black text-white italic">5 PEMAIN</span>
+                </div>
+                <div class="mlbb-card p-8 rounded-2xl border-yellow-500/40 bg-yellow-500/5">
+                    <span class="block text-[10px] text-yellow-500 uppercase font-black mb-2 tracking-widest">Main Event</span>
+                    <span class="text-2xl font-black text-white italic">1-3 MEI</span>
+                </div>
+                <div class="mlbb-card p-8 rounded-2xl">
+                    <span class="block text-[10px] text-green-400 uppercase font-black mb-2 tracking-widest">Status</span>
+                    <span class="text-2xl font-black text-white italic">OPEN</span>
+                </div>
+            </div>
+
+            <button onclick="scrollToDaftar()" class="mlbb-btn px-16 py-6 rounded-lg text-sm tracking-[0.4em]">Amankan Slot Grup Anda</button>
+        </div>
+    </section>
+
+    <!-- Timeline Event -->
+    <section id="jadwal" class="py-40 bg-slate-950/50 relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-24">
+                <h2 class="text-4xl md:text-5xl font-black mb-4 uppercase italic tracking-tighter">THE <span class="mlbb-gradient-text">BATTLE PLAN</span></h2>
+                <div class="w-20 h-1 bg-yellow-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="max-w-4xl mx-auto grid grid-cols-1 gap-8">
+                <div class="mlbb-card p-10 rounded-3xl flex flex-col md:flex-row items-center gap-10">
+                    <div class="md:w-1/3 text-center md:text-left">
+                        <span class="text-yellow-500 font-black text-5xl italic leading-none">30</span>
+                        <span class="block text-[10px] font-bold text-gray-500 uppercase tracking-[0.4em] mt-2">Maret 2026</span>
+                    </div>
+                    <div class="md:w-2/3 border-l-0 md:border-l border-white/10 md:pl-10">
+                        <h4 class="text-xl font-black text-white uppercase italic tracking-widest mb-3">Registrasi Terbuka</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">Pendaftaran resmi dimulai. Siapkan 5 pemain terbaik Anda untuk memperebutkan satu dari 16 slot terbatas.</p>
+                    </div>
+                </div>
+
+                <div class="mlbb-card p-10 rounded-3xl flex flex-col md:flex-row items-center gap-10 border-blue-500/30">
+                    <div class="md:w-1/3 text-center md:text-left">
+                        <span class="text-blue-500 font-black text-5xl italic leading-none">03</span>
+                        <span class="block text-[10px] font-bold text-gray-500 uppercase tracking-[0.4em] mt-2">Mei 2026</span>
+                    </div>
+                    <div class="md:w-2/3 border-l-0 md:border-l border-white/10 md:pl-10">
+                        <h4 class="text-xl font-black text-white uppercase italic tracking-widest mb-3">Penutupan & Bracket</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">Batas akhir pengumpulan data pendaftaran tepat pukul 12:00 WIB dan pengundian bagan pertandingan.</p>
+                    </div>
+                </div>
+
+                <div class="mlbb-card p-10 rounded-3xl flex flex-col md:flex-row items-center gap-10 bg-yellow-500/5 border-yellow-500/50">
+                    <div class="md:w-1/3 text-center md:text-left">
+                        <span class="text-yellow-400 font-black text-5xl italic leading-none">01-03</span>
+                        <span class="block text-[10px] font-bold text-gray-500 uppercase tracking-[0.4em] mt-2">Mei 2026</span>
+                    </div>
+                    <div class="md:w-2/3 border-l-0 md:border-l border-white/10 md:pl-10">
+                        <h4 class="text-xl font-black mlbb-gradient-text uppercase italic tracking-widest mb-3">Main Event Battle</h4>
+                        <p class="text-gray-300 text-xs font-black uppercase tracking-[0.3em] leading-loose">
+                            HARI 1: GROUP STAGE <br>
+                            HARI 2: SEMI-FINALS <br>
+                            HARI 3: GRAND FINAL (OFFLINE)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pendaftaran Form -->
+    <section id="daftar" class="py-40 bg-dark-bg relative">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-3xl mx-auto">
+                <div class="mlbb-card p-12 md:p-20 rounded-[3rem] relative shadow-2xl">
+                    
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl font-black mb-4 uppercase italic mlbb-gradient-text tracking-tighter">JOIN THE ARENA</h2>
+                        <p class="text-gray-500 text-[10px] uppercase tracking-[0.4em] font-black">Format Wajib: 1 Grup / 5 Orang Pemain</p>
+                    </div>
+                    
+                    <form id="suayan-final-reg" class="space-y-10">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                            <div class="space-y-4">
+                                <label class="text-[10px] uppercase tracking-[0.4em] font-black text-blue-400">Nama Grup / Tim</label>
+                                <input id="team_name" type="text" required placeholder="NAMA TIM" class="w-full bg-slate-900/50 border border-slate-800 rounded-xl px-8 py-5 text-sm focus:outline-none focus:border-yellow-500 transition-all text-white placeholder-gray-800 uppercase font-bold tracking-widest">
+                            </div>
+                            <div class="space-y-4">
+                                <label class="text-[10px] uppercase tracking-[0.4em] font-black text-blue-400">Kapten Grup</label>
+                                <input id="captain_name" type="text" required placeholder="IGN KAPTEN" class="w-full bg-slate-900/50 border border-slate-800 rounded-xl px-8 py-5 text-sm focus:outline-none focus:border-yellow-500 transition-all text-white placeholder-gray-800 font-bold tracking-widest">
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <label class="text-[10px] uppercase tracking-[0.4em] font-black text-blue-400">Nomor WhatsApp Aktif</label>
+                            <input id="whatsapp" type="tel" required placeholder="08xxxxxxxxxx" class="w-full bg-slate-900/50 border border-slate-800 rounded-xl px-8 py-5 text-sm focus:outline-none focus:border-yellow-500 transition-all text-white placeholder-gray-800">
+                        </div>
+
+                        <div class="space-y-4 p-8 rounded-2xl border border-blue-500/20 bg-blue-500/5">
+                            <label class="text-[10px] uppercase tracking-[0.4em] font-black text-blue-400 mb-6 block underline decoration-blue-500/30 underline-offset-8">Daftar Anggota (Wajib 5 Orang)</label>
+                            <textarea id="members" required rows="6" placeholder="FORMAT:&#10;1. NICKNAME (ID)&#10;2. NICKNAME (ID)&#10;3. NICKNAME (ID)&#10;4. NICKNAME (ID)&#10;5. NICKNAME (ID)" class="w-full bg-transparent border-none p-0 text-sm focus:outline-none text-white resize-none placeholder-gray-700 font-bold leading-loose"></textarea>
+                        </div>
+                        
+                        <div class="pt-8 text-center">
+                            <button type="submit" class="w-full mlbb-btn py-7 rounded-2xl text-sm shadow-2xl">Kirim Pendaftaran via WhatsApp</button>
+                            <div class="mt-12 opacity-30">
+                                <p class="text-[9px] text-gray-500 uppercase tracking-[0.5em] font-black">Admin Support: 6289525140312</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-20 border-t border-white/5">
+        <div class="container mx-auto px-6 text-center">
+            <h4 class="text-4xl font-black tracking-[0.3em] mlbb-gradient-text font-serif italic mb-6">SUAYAN</h4>
+            <p class="text-gray-600 text-[10px] uppercase tracking-[0.5em] mb-12">Elite League Tournament Season 2026</p>
+            <div class="text-[9px] text-slate-800 uppercase tracking-[0.4em] pt-12 border-t border-slate-900/50 inline-block px-12">
+                &copy; 2026 SUAYAN CHAMPIONSHIP • NO ICONS • ALL SKILL
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showNotification(text) {
+            const box = document.getElementById('notification');
+            const boxText = document.getElementById('notif-text');
+            boxText.innerText = text;
+            box.style.display = 'block';
+            setTimeout(() => { box.style.display = 'none'; }, 6000);
+        }
+
+        function scrollToDaftar() {
+            document.getElementById('daftar').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // WhatsApp Registration
+        document.getElementById('suayan-final-reg').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const adminNumber = "6289525140312";
+            const team = document.getElementById('team_name').value;
+            const cap = document.getElementById('captain_name').value;
+            const wa = document.getElementById('whatsapp').value;
+            const lineup = document.getElementById('members').value;
+
+            const message = `*REGISTRASI SUAYAN CHAMPIONSHIP*%0A` +
+                            `*EDISI 16 GRUP ELIT - 5 PEMAIN*%0A` +
+                            `------------------------------------%0A` +
+                            `⚔️ *Nama Grup:* ${team.toUpperCase()}%0A` +
+                            `👑 *Kapten:* ${cap}%0A` +
+                            `📱 *WhatsApp Kapten:* ${wa}%0A` +
+                            `------------------------------------%0A` +
+                            `👥 *Lineup Tim:*%0A${lineup.replace(/\n/g, '%0A')}%0A` +
+                            `------------------------------------%0A` +
+                            `_Masa Registrasi: 30 Mar - 3 Mei 2026_`;
+
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerText;
+            btn.innerText = "OPENING PORTAL WHATSAPP...";
+            btn.disabled = true;
+
+            setTimeout(() => {
+                showNotification("Mengalihkan ke WhatsApp Admin... Silakan kirim data Anda.");
+                window.open(`https://wa.me/${adminNumber}?text=${message}`, '_blank');
+                btn.innerText = originalText;
+                btn.disabled = false;
+                e.target.reset();
+            }, 1200);
+        });
+
+        // Animation on scroll
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.mlbb-card').forEach(el => {
+            el.style.opacity = "0";
+            el.style.transform = "translateY(50px)";
+            el.style.transition = "all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1)";
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
+
